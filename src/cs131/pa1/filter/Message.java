@@ -11,17 +11,19 @@ public enum Message {
     CANNOT_HAVE_OUTPUT("The command [%s] cannot have an output.\n"),
     REQUIRES_PARAMETER("The command [%s] requires parameter(s).\n"),
     CANNOT_HAVE_INPUT("The command [%s] cannot have an input.\n"),
-    INVALID_PARAMETER("The parameter for command [%s] is invalid.\n")
+    INVALID_PARAMETER("The parameter for command [%s] is invalid.\n"),
+    CANNOT_HAVE_PARAMETER("The command [%s] cannot have parameters.\n")
     ;
     private final String message;
     
-    private Message(String message){
-        this.message=message;
+    private Message(String message) {
+        this.message = message;
     }
-    public String toString(){
+    
+    public String toString() {
         return this.message;
     }
-    public String with_parameter(String parameter){
+    public String with_parameter(String parameter) {
         if(this==WELCOME || this==NEWCOMMAND || this == GOODBYE){
             return this.toString();
         }
