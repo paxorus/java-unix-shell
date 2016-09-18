@@ -13,6 +13,7 @@ public class LsFilter extends SequentialFilter {
 		}
 	}
 	
+	@Override
 	public void process() {
 		File dir = new File(SequentialREPL.currentWorkingDirectory);
 		for (String file : dir.list()) {
@@ -20,6 +21,7 @@ public class LsFilter extends SequentialFilter {
 		}
 	}
 	
+	@Override
 	protected String processLine(String line) {
 		return null;
 	}
