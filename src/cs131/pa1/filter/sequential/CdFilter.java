@@ -12,13 +12,14 @@ public class CdFilter extends SequentialFilter {
 	private String path;
 	
 	public CdFilter(String command) {
+		this.command = command;
+		
 		// check args
 		String[] params = command.split(" ");
 		if (params.length > 2) {
-			throw new RuntimeException(Message.INVALID_PARAMETER.with_parameter(">"));
-		}
-		if (params.length == 0) {
-			throw new RuntimeException(Message.REQUIRES_PARAMETER.with_parameter(">"));
+			error(Message.INVALID_PARAMETER);
+		} else if (params.length == 1) {
+			error(Message.REQUIRES_PARAMETER);
 		}
 		
 		path = params[1].replaceAll("\\*", " ");
