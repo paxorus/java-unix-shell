@@ -49,6 +49,7 @@ public abstract class SequentialFilter extends Filter {
 	
 	protected abstract String processLine(String line);
 	
+	// added by Prakhar, see SequentialREPL:execute() for the exception handler
 	protected void error(Message message) {
 		throw new RuntimeException(message.with_parameter(command));
 	}

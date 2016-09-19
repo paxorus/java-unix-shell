@@ -4,9 +4,7 @@ import cs131.pa1.filter.Message;
 
 public class WcFilter extends SequentialFilter {
 	
-	private int lineCount;
-	private int wordCount;
-	private int charCount;
+	private int lineCount, wordCount, charCount;
 	
 	public WcFilter(String command) {
 		this.command = command;

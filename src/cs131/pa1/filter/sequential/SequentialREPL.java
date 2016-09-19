@@ -15,14 +15,15 @@ public class SequentialREPL {
 		Scanner read = new Scanner(System.in);
 		currentWorkingDirectory = System.getProperty("user.dir");
 		
+		// REP loop
 		while (true) {
 			print(Message.NEWCOMMAND);
-			String command = read.nextLine();
+			String command = read.nextLine();// read
 			if (command.trim().equals(EXIT_COMMAND)) {
 				print(Message.GOODBYE);
 				break;
 			} else {
-				execute(command);
+				execute(command);// eval-print
 			}
 		}
 		read.close();
@@ -35,6 +36,7 @@ public class SequentialREPL {
 				sf.process();
 			}
 		} catch (Throwable ex) {
+			// safely print Message
 			print(ex.getMessage());
 		}
 	}
