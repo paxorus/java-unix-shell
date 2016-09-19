@@ -36,8 +36,12 @@ public class SequentialCommandBuilder {
 		
 	private static String setOutputStream(String command) {
 		int idx = command.lastIndexOf(">");
+		if (idx == 0) {
+			throw new RuntimeException(Message.REQUIRES_INPUT.with_parameter(command));
+		}
 		if (idx > -1) {
 			command = command.substring(0, idx) + " | > " + command.substring(idx + 1);
+			command = command.replaceFirst(">\\s+", "> ");// > interior whitespace correction
 			return command;
 		}	
 		if (needsOutputStream(command)) {
@@ -63,22 +67,21 @@ public class SequentialCommandBuilder {
 		String op = parts[0].toLowerCase();
 		switch (op) {
 			case "cd":
-//				check
 				return new CdFilter(subCommand);
+			case "grep":
+				return new GrepFilter(subCommand);
+			case "head":
+				return new HeadFilter(subCommand);
 			case "ls":
 				return new LsFilter(subCommand);
 			case "pwd":
 				return new PwdFilter(subCommand);
+			case "wc":
+				return new WcFilter(subCommand);
 			case ">":
 				return new StreamFilter(subCommand);
 			default:
-				throw new RuntimeException(Message.COMMAND_NOT_FOUND.with_parameter(parts[0]));
+				throw new RuntimeException(Message.COMMAND_NOT_FOUND.with_parameter(subCommand));
 		}
 	}
-
-//	private static void linkFilters(List<SequentialFilter> filters){
-//		for (int i = 0; i < filters.size() - 1; i ++) {
-//			filters.get(i).setNextFilter(filters.get(i + 1));
-//		}
-//	}
 }

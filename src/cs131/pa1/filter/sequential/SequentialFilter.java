@@ -3,12 +3,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import cs131.pa1.filter.Filter;
+import cs131.pa1.filter.Message;
 
 
 public abstract class SequentialFilter extends Filter {
 	
 	protected Queue<String> input;
 	protected Queue<String> output;
+	protected String command;
 	
 	@Override
 	public void setPrevFilter(Filter prevFilter) {
@@ -46,5 +48,9 @@ public abstract class SequentialFilter extends Filter {
 	}
 	
 	protected abstract String processLine(String line);
+	
+	protected void error(Message message) {
+		throw new RuntimeException(message.with_parameter(command));
+	}
 	
 }

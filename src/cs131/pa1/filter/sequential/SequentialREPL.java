@@ -13,14 +13,14 @@ public class SequentialREPL {
 		print(Message.WELCOME);
 		
 		Scanner read = new Scanner(System.in);
-		boolean exitFlag = false;
 		currentWorkingDirectory = System.getProperty("user.dir");
 		
-		while (!exitFlag) {
+		while (true) {
 			print(Message.NEWCOMMAND);
 			String command = read.nextLine();
 			if (command.trim().equals(EXIT_COMMAND)) {
 				print(Message.GOODBYE);
+				break;
 			} else {
 				execute(command);
 			}

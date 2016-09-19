@@ -8,8 +8,9 @@ import cs131.pa1.filter.Message;
 public class LsFilter extends SequentialFilter {
 	
 	public LsFilter(String command) {
+		this.command = command;
 		if (command.split(" ").length > 1) {
-			throw new RuntimeException(Message.CANNOT_HAVE_PARAMETER.with_parameter("ls"));
+			error(Message.CANNOT_HAVE_PARAMETER);
 		}
 	}
 	
@@ -28,6 +29,6 @@ public class LsFilter extends SequentialFilter {
 	
 	@Override
 	public void setPrevFilter(Filter f) {
-		throw new RuntimeException(Message.CANNOT_HAVE_INPUT.with_parameter("ls"));
+		error(Message.CANNOT_HAVE_INPUT);
 	}
 }

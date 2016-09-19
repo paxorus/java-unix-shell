@@ -6,7 +6,10 @@ import cs131.pa1.filter.Filter;
 public class PwdFilter extends SequentialFilter {
 	
 	public PwdFilter(String command) {
-
+		this.command = command;
+		if (command.split(" ").length > 1) {
+			error(Message.CANNOT_HAVE_PARAMETER);
+		}
 	}
 	
 	@Override
@@ -22,6 +25,6 @@ public class PwdFilter extends SequentialFilter {
 	
 	@Override
 	public void setPrevFilter(Filter f) {
-		throw new RuntimeException(Message.CANNOT_HAVE_INPUT.toString());
+		error(Message.CANNOT_HAVE_INPUT);
 	}
 }
