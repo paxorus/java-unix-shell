@@ -6,4 +6,5 @@
 # Eclipse junk
 .classpath
 .project
+.settings
 bin

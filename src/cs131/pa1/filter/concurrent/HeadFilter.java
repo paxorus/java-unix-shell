@@ -1,4 +1,4 @@
-package cs131.pa1.filter.sequential;
+package cs131.pa1.filter.concurrent;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import cs131.pa1.filter.Filter;
 import cs131.pa1.filter.Message;
 
-public class HeadFilter extends SequentialFilter {
+public class HeadFilter extends ConcurrentFilter {
 	
 	private final int DEFAULT_HEAD_SIZE = 10;
 	private int headSize;
@@ -43,7 +43,7 @@ public class HeadFilter extends SequentialFilter {
 	
 	public void process() {
 		
-		String pwd = SequentialREPL.currentWorkingDirectory + FILE_SEPARATOR;
+		String pwd = ConcurrentREPL.currentWorkingDirectory + FILE_SEPARATOR;
 		try (BufferedReader reader = new BufferedReader(
 				new InputStreamReader(new FileInputStream(pwd + fileName)))) {
 			

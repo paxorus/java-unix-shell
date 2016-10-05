@@ -1,8 +1,8 @@
-package cs131.pa1.filter.sequential;
+package cs131.pa1.filter.concurrent;
 
 import cs131.pa1.filter.Message;
 
-public class GrepFilter extends SequentialFilter {
+public class GrepFilter extends ConcurrentFilter {
 	
 	private String pattern;
 	

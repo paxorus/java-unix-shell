@@ -1,8 +1,8 @@
-package cs131.pa1.filter.sequential;
+package cs131.pa1.filter.concurrent;
 
 import cs131.pa1.filter.Message;
 
-public class WcFilter extends SequentialFilter {
+public class WcFilter extends ConcurrentFilter {
 	
 	private int lineCount, wordCount, charCount;
 	

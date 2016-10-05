@@ -1,4 +1,4 @@
-package cs131.pa1.filter.sequential;
+package cs131.pa1.filter.concurrent;
 
 import cs131.pa1.filter.Message;
 
@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import cs131.pa1.filter.Filter;
 
-public class CdFilter extends SequentialFilter {
+public class CdFilter extends ConcurrentFilter {
 	
 	private String path;
 	
@@ -28,14 +28,14 @@ public class CdFilter extends SequentialFilter {
 	@Override
 	public void process() {
 
-		String pwd = SequentialREPL.currentWorkingDirectory;
+		String pwd = ConcurrentREPL.currentWorkingDirectory;
 
 		File f = new File(pwd + FILE_SEPARATOR + path);
 		if (!f.isDirectory()) {
 			error(Message.DIRECTORY_NOT_FOUND);
 		}
 		try {
-			SequentialREPL.currentWorkingDirectory = f.toPath().toRealPath().toString();
+			ConcurrentREPL.currentWorkingDirectory = f.toPath().toRealPath().toString();
 		} catch (IOException ioex) {
 			System.out.println(ioex);
 		}

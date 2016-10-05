@@ -1,11 +1,11 @@
-package cs131.pa1.filter.sequential;
+package cs131.pa1.filter.concurrent;
 
 import java.io.File;
 import cs131.pa1.filter.Filter;
 import cs131.pa1.filter.Message;
 
 
-public class LsFilter extends SequentialFilter {
+public class LsFilter extends ConcurrentFilter {
 	
 	public LsFilter(String command) {
 		this.command = command;
@@ -16,7 +16,7 @@ public class LsFilter extends SequentialFilter {
 	
 	@Override
 	public void process() {
-		File dir = new File(SequentialREPL.currentWorkingDirectory);
+		File dir = new File(ConcurrentREPL.currentWorkingDirectory);
 		for (String file : dir.list()) {
 			output.add(file);
 		}

@@ -1,11 +1,11 @@
-package cs131.pa1.filter.sequential;
+package cs131.pa1.filter.concurrent;
 
 import java.io.File;
 import java.io.PrintStream;
 import cs131.pa1.filter.Filter;
 import cs131.pa1.filter.Message;
 
-public class StreamFilter extends SequentialFilter {
+public class StreamFilter extends ConcurrentFilter {
 		
 	private PrintStream printer;
 	
@@ -24,7 +24,7 @@ public class StreamFilter extends SequentialFilter {
 		if (target.equals("%")) {
 			printer = System.out;
 		} else {
-			String pwd = SequentialREPL.currentWorkingDirectory + FILE_SEPARATOR;
+			String pwd = ConcurrentREPL.currentWorkingDirectory + FILE_SEPARATOR;
 			File f = new File(pwd + target);
 			try {
 				f.createNewFile();

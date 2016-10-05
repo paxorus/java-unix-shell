@@ -1,22 +1,22 @@
-package cs131.pa1.filter.sequential;
+package cs131.pa1.filter.concurrent;
 
 import cs131.pa1.filter.Message;
 import java.util.List;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class SequentialCommandBuilder {
+public class ConcurrentCommandBuilder {
 	
 	private static final String[] NO_OUTPUT = {"cd"};
 	
-	public static List<SequentialFilter> createFiltersFromCommand(String command){
-		LinkedList<SequentialFilter> filters = new LinkedList<SequentialFilter>();
+	public static List<ConcurrentFilter> createFiltersFromCommand(String command){
+		LinkedList<ConcurrentFilter> filters = new LinkedList<ConcurrentFilter>();
 			
 		command = adjust(command);
 		
-		SequentialFilter prev = null;
+		ConcurrentFilter prev = null;
 		for (String subCommand : command.split(" \\| ")) {
-			SequentialFilter filter = constructFilterFor(subCommand);
+			ConcurrentFilter filter = constructFilterFor(subCommand);
 			if (prev != null) {
 				// this ensures a method is called on each filter
 				filter.setPrevFilter(prev);
@@ -62,7 +62,7 @@ public class SequentialCommandBuilder {
 		return !Arrays.asList(NO_OUTPUT).contains(lastOp);
 	}
 	
-	private static SequentialFilter constructFilterFor(String subCommand) {
+	private static ConcurrentFilter constructFilterFor(String subCommand) {
 		String[] parts = subCommand.split(" ");
 		String op = parts[0].toLowerCase();
 		switch (op) {

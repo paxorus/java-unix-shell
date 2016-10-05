@@ -1,9 +1,9 @@
-package cs131.pa1.filter.sequential;
+package cs131.pa1.filter.concurrent;
 
 import cs131.pa1.filter.Message;
 import cs131.pa1.filter.Filter;
 
-public class PwdFilter extends SequentialFilter {
+public class PwdFilter extends ConcurrentFilter {
 	
 	public PwdFilter(String command) {
 		this.command = command;
@@ -14,7 +14,7 @@ public class PwdFilter extends SequentialFilter {
 	
 	@Override
 	public void process() {
-		String pwd = SequentialREPL.currentWorkingDirectory;
+		String pwd = ConcurrentREPL.currentWorkingDirectory;
 		output.add(pwd);
 	}
 	

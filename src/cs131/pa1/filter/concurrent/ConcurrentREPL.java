@@ -1,10 +1,10 @@
-package cs131.pa1.filter.sequential;
+package cs131.pa1.filter.concurrent;
 
 import cs131.pa1.filter.Message;
 import java.util.List;
 import java.util.Scanner;
 
-public class SequentialREPL {
+public class ConcurrentREPL {
 
 	static String currentWorkingDirectory;
 	static final String EXIT_COMMAND = "exit";
@@ -31,8 +31,8 @@ public class SequentialREPL {
 	
 	public static void execute(String command) {
 		try {
-			List<SequentialFilter> chain = SequentialCommandBuilder.createFiltersFromCommand(command);
-			for (SequentialFilter sf : chain) {
+			List<ConcurrentFilter> chain = ConcurrentCommandBuilder.createFiltersFromCommand(command);
+			for (ConcurrentFilter sf : chain) {
 				sf.process();
 			}
 		} catch (Throwable ex) {
