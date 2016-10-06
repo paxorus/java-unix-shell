@@ -17,11 +17,11 @@ public class GrepFilter extends ConcurrentFilter {
 		pattern = params[1];
 	}
 	
-	public void process() {
+	public void run() {
 		if (input == null) {
 			error(Message.REQUIRES_INPUT);
 		}
-		super.process();
+		super.run();
 	}
 	
 	protected String processLine(String line) {

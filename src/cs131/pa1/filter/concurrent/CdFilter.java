@@ -26,7 +26,7 @@ public class CdFilter extends ConcurrentFilter {
 	}
 	
 	@Override
-	public void process() {
+	public void run() {
 
 		String pwd = ConcurrentREPL.currentWorkingDirectory;
 

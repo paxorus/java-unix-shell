@@ -41,7 +41,8 @@ public class HeadFilter extends ConcurrentFilter {
 		
 	}
 	
-	public void process() {
+	@Override
+	public void run() {
 		
 		String pwd = ConcurrentREPL.currentWorkingDirectory + FILE_SEPARATOR;
 		try (BufferedReader reader = new BufferedReader(
@@ -49,8 +50,9 @@ public class HeadFilter extends ConcurrentFilter {
 			
 			String line;
 			for (int i = 0; i < headSize && ((line = reader.readLine()) != null); i ++) {
-				output.add(line);
+				output.put(line);
 			}
+			finish();
 		} catch (FileNotFoundException fnfex) {
 			error(Message.FILE_NOT_FOUND);
 		} catch (Exception ex) {

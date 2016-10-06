@@ -11,14 +11,21 @@ public class WcFilter extends ConcurrentFilter {
 	}
 	
 	@Override
-	public void process() {
+	public void run() {
 		if (input == null) {
 			error(Message.REQUIRES_INPUT);
 		}
-		
-		super.process();
+		super.run();
+	}
+	
+	@Override
+	public void finish() {
 		String out = lineCount + " " + wordCount + " " + charCount;
-		output.add(out);
+		try {
+			output.put(out);
+			super.finish();
+		} catch (Exception ex) {
+		}
 	}
 	
 	@Override

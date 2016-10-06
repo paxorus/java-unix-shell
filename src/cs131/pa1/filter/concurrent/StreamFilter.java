@@ -23,6 +23,8 @@ public class StreamFilter extends ConcurrentFilter {
 	private void initOutputStream(String target) {
 		if (target.equals("%")) {
 			printer = System.out;
+		} else if (target.equals("%%")) {
+			printer = null;
 		} else {
 			String pwd = ConcurrentREPL.currentWorkingDirectory + FILE_SEPARATOR;
 			File f = new File(pwd + target);
@@ -30,26 +32,34 @@ public class StreamFilter extends ConcurrentFilter {
 				f.createNewFile();
 				printer = new PrintStream(f);
 			} catch (Exception ex) {
-				System.out.println(ex);
 			}
 		}
 	}
 	
-	public void process() {
+	@Override
+	public void run() {
 		String target = command.split(" ")[1];
 		initOutputStream(target);
 
 		if (input == null) {
 			error(Message.REQUIRES_INPUT);
 		}
-		super.process();
-		if (printer != System.out) {
+		super.run();
+	}
+	
+	@Override
+	public void finish() {
+
+		if (printer != System.out && printer != null) {
 			printer.close();
 		}
 	}
 		
 	protected String processLine(String line) {
-		printer.println(line);
+		// background job with no output file
+		if (printer != null) {
+			printer.println(line);
+		}
 		return null;
 	}
 	

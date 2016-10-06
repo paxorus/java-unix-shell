@@ -15,10 +15,15 @@ public class LsFilter extends ConcurrentFilter {
 	}
 	
 	@Override
-	public void process() {
+	public void run() {
 		File dir = new File(ConcurrentREPL.currentWorkingDirectory);
-		for (String file : dir.list()) {
-			output.add(file);
+		try {
+			for (String file : dir.list()) {
+				output.put(file);
+			}
+			finish();
+		} catch (Exception ex) {
+			System.out.println(ex);
 		}
 	}
 	

@@ -1,15 +1,15 @@
 package cs131.pa1.filter.concurrent;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import cs131.pa1.filter.Filter;
 import cs131.pa1.filter.Message;
 
 
-public abstract class ConcurrentFilter extends Filter {
+public abstract class ConcurrentFilter extends Filter implements Runnable {
 	
-	protected Queue<String> input;
-	protected Queue<String> output;
+	protected BlockingQueue<String> input;
+	protected BlockingQueue<String> output;
 	protected String command;
 	
 	@Override
@@ -24,7 +24,7 @@ public abstract class ConcurrentFilter extends Filter {
 			this.next = concurrentNext;
 			concurrentNext.prev = this;
 			if (this.output == null){
-				this.output = new LinkedList<String>();
+				this.output = new LinkedBlockingQueue<String>();
 			}
 			concurrentNext.input = this.output;
 		} else {
@@ -32,14 +32,29 @@ public abstract class ConcurrentFilter extends Filter {
 		}
 	}
 	
-	public void process(){
-		while (!input.isEmpty()){
-			String line = input.poll();
-			String processedLine = processLine(line);
-			if (processedLine != null){
-				output.add(processedLine);
+	public void run() {
+		String line;
+		try {
+			while ((line = input.take()) != PoisonPill.X){
+				String processedLine = processLine(line);
+				if (processedLine != null){
+					output.put(processedLine);
+				}
 			}
-		}	
+			finish();
+		} catch (Exception ex) {
+		}
+	}
+	
+	public void finish() {
+		// poison pill protocol
+		try {
+			if (output != null) {
+				output.put(PoisonPill.X);
+			}
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
 	}
 	
 	@Override

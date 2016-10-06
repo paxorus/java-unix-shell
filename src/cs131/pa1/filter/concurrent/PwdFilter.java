@@ -13,9 +13,14 @@ public class PwdFilter extends ConcurrentFilter {
 	}
 	
 	@Override
-	public void process() {
+	public void run() {
 		String pwd = ConcurrentREPL.currentWorkingDirectory;
-		output.add(pwd);
+		try {
+			output.put(pwd);
+			finish();
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
 	}
 	
 	@Override
