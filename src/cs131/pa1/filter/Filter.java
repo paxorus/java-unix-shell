@@ -10,6 +10,4 @@ public abstract class Filter {
 	
 	public abstract void setPrevFilter(Filter next);
 	
-	public abstract boolean isDone();
-	
 }

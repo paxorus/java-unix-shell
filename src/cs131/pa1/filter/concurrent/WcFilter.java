@@ -23,9 +23,9 @@ public class WcFilter extends ConcurrentFilter {
 		String out = lineCount + " " + wordCount + " " + charCount;
 		try {
 			output.put(out);
-			super.finish();
 		} catch (Exception ex) {
 		}
+		super.finish();
 	}
 	
 	@Override

@@ -56,12 +56,7 @@ public abstract class ConcurrentFilter extends Filter implements Runnable {
 			System.out.println(ex);
 		}
 	}
-	
-	@Override
-	public boolean isDone() {
-		return input.size() == 0;
-	}
-	
+		
 	protected abstract String processLine(String line);
 	
 	// added by Prakhar, see ConcurrentREPL:execute() for the exception handler

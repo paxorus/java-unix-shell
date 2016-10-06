@@ -38,7 +38,7 @@ public class JobManager {
 			if (job.isDone()) {
 				it.remove();
 			} else {
-				System.out.printf("\t%d. %s", i, job);// 4. ls > hello.txt &
+				System.out.printf("\t%d. %s\n", i, job);// 4. ls > hello.txt &
 				i ++;
 			}
 		}
