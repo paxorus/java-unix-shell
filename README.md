@@ -22,9 +22,11 @@ End a command with a `> file.txt` to redirect output or '&' to run it in the bac
 * StreamFilter (for > commands) is still created if the output will not be redirected. A `%` marks STDOUT as the target. `%%` marks that it's a background job so nothing will be printed.
 * I chose not to use isDone(). I use the poison pill technique, in which each thread upon completion places a special string in its outbox marking the end of the input.
 * In CdFilter, I was able to handle all combinations of `.` and `..` cross-platform trivially with just a few lines of Java:
+
     FILE_SEPARATOR = System.getProperty("file.separator");
     File f = new File(pwd + FILE_SEPARATOR + path)
     f.toPath().toRealPath().toString()
+    
 * Instead of continuously updating its list of completed background jobs, JobManager clears completed background jobs when the repl_jobs command requests the list of active jobs (each Job checks the state of its last thread).
 * For commands that don't take input or output, I override the setter methods with a method that will throw a Runtime exception.
 

@@ -8,7 +8,14 @@ public class ConcurrentCommandBuilder {
 	
 	private static final String[] NO_OUTPUT = {"cd"};
 	
-	public static Job createFiltersFromCommand(String command){
+	/**
+	 * The only public method in this class, mapping raw user input to a Job.
+	 * 
+	 * @param command
+	 * @return Job
+	 * @see JobManager
+	 */
+	public static Job createJob(String command){
 
 		Job job = new Job(command);
 		command = correct(command);
@@ -33,6 +40,13 @@ public class ConcurrentCommandBuilder {
 		return job;
 	}
 	
+	/**
+	 * Conform all whitespace to single spaces before and after pipes,
+	 * commands, and parameters.
+	 * 
+	 * @param command
+	 * @return
+	 */
 	private static String correct(String command) {
 		command = command.trim();// leading, trailing whitespace removed
 		command = command.replaceAll("\\|", " | ");// so sub-commands don't need trimming
@@ -63,8 +77,15 @@ public class ConcurrentCommandBuilder {
 		return command + " | > %";
 	}
 	
+	/**
+	 * Determines whether the command will have output by looking at
+	 * the final filter in the command. The NO_OUTPUT registry variable 
+	 * needs to be maintained manually.
+	 * 
+	 * @param command
+	 * @return whether command generates output
+	 */
 	private static boolean needsOutputStream(String command) {
-		// determine whether the command will have output
 		String[] commands = command.split(" \\| ");
 		String lastCommand =  commands[commands.length - 1];
 		String lastOp = lastCommand.split(" ")[0].toLowerCase();
@@ -72,6 +93,13 @@ public class ConcurrentCommandBuilder {
 		return !Arrays.asList(NO_OUTPUT).contains(lastOp);
 	}
 	
+	
+	/**
+	 * Maps a sub-command to the proper object.
+	 * 
+	 * @param subCommand - string representing one command containing no pipes
+	 * @return filter object
+	 */
 	private static ConcurrentFilter constructFilterFor(String subCommand) {
 		String[] parts = subCommand.split(" ");
 		String op = parts[0].toLowerCase();
@@ -93,9 +121,5 @@ public class ConcurrentCommandBuilder {
 			default:
 				throw new RuntimeException(Message.COMMAND_NOT_FOUND.with_parameter(subCommand));
 		}
-	}
-	
-	public static boolean isBackgroundJob(String command) {
-		return command.endsWith(" | &");// assumes command has been corrected
 	}
 }
